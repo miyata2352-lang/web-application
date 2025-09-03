@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>カード生成サイト</title>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <style>
+        /* --- 全体設定 --- */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h1 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 36px;
+            margin: 40px 0 20px 0;
+            text-shadow: 2px 2px 10px #000;
+        }
+
+        /* --- 入力フォーム --- */
+        .form-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        input[type="text"] {
+            padding: 12px 15px;
+            font-size: 18px;
+            border-radius: 8px;
+            border: none;
+            width: 250px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            box-shadow: 0 0 10px #fff;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(90deg, #ff6a00, #ee0979);
+            color: #fff;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+
+        /* --- カード表示 --- */
+        #result {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        #cardImage {
+            max-width: 90%;
+            max-height: 600px;
+            border: 8px solid rgba(255,255,255,0.8);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+
+        #cardImage:hover {
+            transform: scale(1.02);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+        }
+
+        /* --- ローディング --- */
+        #loading {
+            display: none;
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffec00;
+            text-shadow: 1px 1px 5px #000;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 20px 0;
+            font-size: 14px;
+            color: #ccc;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>✨ ダークカード生成 ✨</h1>
+
+    <div class="form-container">
+        <input type="text" id="characterName" placeholder="キャラクター名を入力">
+        <button onclick="generateCard()">生成</button>
+    </div>
+
+    <div id="loading">生成中…しばらくお待ちください</div>
+
+    <div id="result">
+        <img id="cardImage" src="" alt="">
+    </div>
+
+    <footer>StudioMIYA © 2025</footer>
+
+    <script>
+        async function generateCard() {
+            const name = document.getElementById("characterName").value;
+            if (!name) {
+                alert("キャラクター名を入力してください！");
+                return;
+            }
+
+            const loading = document.getElementById("loading");
+            loading.style.display = "block";
+
+            try {
+                const response = await fetch("/generate_card", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name: name })
+                });
+
+                if (!response.ok) throw new Error("カード生成に失敗しました");
+
+                const blob = await response.blob();
+                const url = URL.createObjectURL(blob);
+
+                const img = document.getElementById("cardImage");
+                img.src = url;
+                img.style.display = "block";
+            } catch (err) {
+                alert(err.message);
+            } finally {
+                loading.style.display = "none";
+            }
+        }
+    </script>
+</body>
+</html>

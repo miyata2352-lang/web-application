@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>私の紹介ページ</title>
+    <style>
+        /* --- 全体 --- */
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #f0f4f8, #d9e2ec);
+            color: #333;
+        }
+
+        /* --- ヘッダー --- */
+        header {
+            background-color: #4f46e5;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+        header p {
+            font-size: 1.2em;
+            margin-top: 5px;
+        }
+
+        /* --- メイン --- */
+        main {
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        /* --- セクション --- */
+        section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+        }
+
+        section h2 {
+            color: #4f46e5;
+            margin-top: 0;
+        }
+
+        /* --- ボタン --- */
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .btn:hover {
+            background-color: #3b36c4;
+        }
+
+        /* --- フッター --- */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #555;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>こんにちは、私はMIYAです</h1>
+        <p>プログラミングと創作が好きなクリエイター</p>
+    </header>
+
+    <main>
+        <section>
+            <h2>自己紹介</h2>
+            <p>私は日々プログラミングを学びながら、自作スマホアプリやウェブアプリを作っています。プログラミングは得意とは言えませんが、アイデアを形にするのが好きです。</p>
+        </section>
+        
+        <section style="text-align:center; background: linear-gradient(135deg, #facc15, #f87171); color:white; padding:50px; border-radius:15px; box-shadow:0 8px 20px rgba(0,0,0,0.2);">
+            <h2 style="font-size:2em; margin-bottom:20px;">カード生成ウェブアプリ</h2>
+            <p style="font-size:1.2em; margin-bottom:30px;">あなたのオリジナルカードを簡単に生成できます！</p>
+            <a href="card_generated.html" class="btn" style="padding:15px 30px; font-size:1.2em; background-color:#ffffff; color:#f87171; font-weight:bold; border-radius:10px; text-decoration:none; transition:0.3s;">
+        カード生成を始める
+            </a>
+        </section>
+
+
+        <section>
+            <h2>スキル</h2>
+            <ul>
+                <li>Python、JavaScript、HTML/CSS</li>
+                <li>Unityでの2Dゲーム制作をいつかやりたい</li>
+                <li>Webアプリ開発（バックエンド＆フロントエンド）</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>趣味</h2>
+            <p>ゲーム、アニメ、漫画、AIとおしゃべり、食べる</p>
+            <button class="btn" onclick="showMessage()">メッセージを見る</button>
+            <p id="msg" style="margin-top:15px; color:#4f46e5; font-weight:bold;"></p>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2025 のホームページ
+    </footer>
+
+    <script>
+        function showMessage() {
+            const messages = [
+                "今日は素晴らしい一日ですね！",
+                "プログラミングを楽しみましょう！",
+                "クリエイティブな発想が未来を作ります。",
+                "あなたも何か作ってみませんか？"
+            ];
+            const msg = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById("msg").textContent = msg;
+        }
+    </script>
+</body>
+</html>
