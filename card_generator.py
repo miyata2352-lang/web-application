@@ -501,6 +501,9 @@ def generate_character_image(creature_en, adj_en, place_en, rarity, filename="ch
     # 保存
     img = Image.open(BytesIO(image_data))
     img.save(filename)
+    del image
+    import gc
+    gc.collect()
     
     print(f"画像生成完了: {filename} (レアリティ: {rarity})")
     return filename
